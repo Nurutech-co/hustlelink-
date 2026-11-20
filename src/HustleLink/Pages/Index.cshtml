@@ -1,0 +1,271 @@
+@page
+@model HustleLink.Pages.IndexModel
+@{
+    Layout = null;
+    ViewData["Title"] = "HustleLink — skills speak for themselves";
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"]</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --ink: #202820;
+            --muted: #788078;
+            --line: #e6e9e2;
+            --paper: #f7f8f5;
+            --green: #2f7259;
+            --green-dark: #235a45;
+            --green-soft: #edf4ee;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+        body { min-width: 320px; margin: 0; color: var(--ink); background: var(--paper); }
+        a { color: inherit; text-decoration: none; }
+        button { font: inherit; }
+        .site-header { position: sticky; top: 0; z-index: 2; display: flex; height: 72px; align-items: center; justify-content: space-between; padding: 0 max(24px, calc((100% - 1120px) / 2)); border-bottom: 1px solid var(--line); background: #ffffffed; backdrop-filter: blur(12px); }
+        .brand { display: flex; align-items: center; gap: 10px; font-size: 19px; font-weight: 800; letter-spacing: -.8px; }
+        .brand-mark { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 11px; color: white; background: var(--green); font-size: 22px; }
+        .brand-accent { color: var(--green); }
+        .top-nav { display: flex; align-items: center; gap: 9px; color: #626a62; font-size: 13px; font-weight: 600; }
+        .top-nav a { padding: 9px 13px; border-radius: 9px; }
+        .top-nav a:hover, .top-nav a[aria-current="page"] { color: var(--green-dark); background: var(--green-soft); }
+        .page { display: grid; max-width: 1120px; grid-template-columns: minmax(0, 680px) minmax(250px, 310px); align-items: start; gap: 52px; margin: 0 auto; padding: 52px 24px 80px; }
+        .feed-column { min-width: 0; }
+        .intro { margin-bottom: 27px; }
+        .eyebrow { margin: 0 0 10px; color: var(--green); font-size: 11px; font-weight: 750; letter-spacing: 1px; text-transform: uppercase; }
+        h1 { max-width: 510px; margin: 0; font-size: clamp(30px, 4vw, 43px); line-height: 1.12; letter-spacing: -1.7px; }
+        .intro-copy { max-width: 470px; margin: 12px 0 0; color: var(--muted); font-size: 14px; line-height: 1.65; }
+        .feed-tabs { display: flex; width: fit-content; gap: 4px; margin-bottom: 19px; padding: 4px; border: 1px solid var(--line); border-radius: 11px; background: #eef0eb; }
+        .feed-tabs a { min-width: 105px; padding: 9px 14px; border-radius: 8px; color: #717970; font-size: 12px; font-weight: 700; text-align: center; }
+        .feed-tabs a:hover { color: var(--green-dark); }
+        .feed-tabs a[aria-current="page"] { color: var(--green-dark); background: white; box-shadow: 0 1px 3px #20282018; }
+        .notice { margin: 0 0 15px; padding: 12px 14px; border: 1px solid #d5e7d9; border-radius: 10px; color: #285d41; background: #eef7ef; font-size: 13px; }
+        .video-card { overflow: hidden; margin: 0 0 20px; border: 1px solid var(--line); border-radius: 15px; background: white; box-shadow: 0 3px 14px #20282008; }
+        .creator-header { display: flex; min-height: 75px; align-items: center; gap: 12px; padding: 13px 16px; }
+        .avatar { width: 44px; height: 44px; flex: 0 0 auto; border: 2px solid white; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 1px var(--line); }
+        .creator-info { min-width: 0; }
+        .creator-name { margin: 0 0 4px; font-size: 13px; font-weight: 750; }
+        .creator-detail { margin: 0; color: var(--muted); font-size: 11px; }
+        .creator-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+        .follow-form { margin: 0; }
+        .follow-button { min-width: 82px; padding: 8px 13px; border: 0; border-radius: 8px; color: white; background: var(--green); cursor: pointer; font-size: 11px; font-weight: 750; }
+        .follow-button:hover { background: var(--green-dark); }
+        .contact-button { display: inline-block; padding: 7px 11px; border: 1px solid var(--line); border-radius: 8px; color: var(--green-dark); background: white; font-size: 11px; font-weight: 700; }
+        .contact-button:hover { border-color: #b7cfbd; background: var(--green-soft); }
+        .video-player { display: block; width: 100%; max-height: 440px; aspect-ratio: 1.55; background: #e8ebe6; object-fit: cover; }
+        .post-details { padding: 13px 17px 17px; }
+        .post-stats { display: flex; justify-content: space-between; color: #92988f; font-size: 11px; }
+        .caption { margin: 11px 0 0; color: #5f665e; font-size: 13px; line-height: 1.65; }
+        .caption strong { margin-right: 5px; color: var(--ink); }
+        .engagement-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 15px; padding-top: 13px; border-top: 1px solid #eff0ec; }
+        .like-form { margin: 0; }
+        .like-button { padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; color: #59645b; background: white; cursor: pointer; font-size: 12px; font-weight: 700; }
+        .like-button:hover { color: #b34f56; background: #fff7f7; }
+        .like-button.liked { border-color: #f0d7d9; color: #b34f56; background: #fff7f7; }
+        .rating-summary { display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: 11px; }
+        .rating-stars { color: #d3d8d0; font-size: 16px; letter-spacing: 1px; }
+        .rating-stars .filled { color: #d39335; }
+        .rating-form { margin-left: auto; }
+        .rating-fieldset { display: flex; align-items: center; gap: 8px; margin: 0; padding: 0; border: 0; }
+        .rating-fieldset legend { float: left; margin-right: 2px; color: #747c73; font-size: 10px; }
+        .rating-choice { position: relative; display: inline-flex; cursor: pointer; }
+        .rating-choice input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+        .rating-choice span { color: #d3d8d0; font-size: 18px; line-height: 1; }
+        .rating-choice input:checked + span, .rating-choice:hover span { color: #d39335; }
+        .rating-choice input:focus-visible + span { outline: 2px solid var(--green); outline-offset: 2px; }
+        .rate-button { padding: 6px 9px; border: 0; border-radius: 7px; color: white; background: var(--green); cursor: pointer; font-size: 10px; font-weight: 700; }
+        .rate-button:hover { background: var(--green-dark); }
+        .side-column { position: sticky; top: 100px; padding-top: 21px; }
+        .profile-card, .suggestions-card { padding: 19px; border: 1px solid var(--line); border-radius: 14px; background: white; }
+        .profile-card { margin-bottom: 15px; }
+        .profile-heading { display: flex; align-items: center; gap: 11px; }
+        .profile-icon { display: grid; width: 42px; height: 42px; place-items: center; border-radius: 50%; color: white; background: #d2916d; font-weight: 750; }
+        .profile-heading strong { display: block; font-size: 13px; }
+        .profile-heading span { color: var(--muted); font-size: 11px; }
+        .profile-copy { margin: 14px 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+        .profile-tag { padding-top: 12px; border-top: 1px solid #eff0ec; color: var(--green); font-size: 11px; font-weight: 700; }
+        .suggestions-title { margin: 0 0 16px; font-size: 14px; letter-spacing: -.2px; }
+        .suggestion { display: flex; align-items: center; gap: 9px; margin: 13px 0; }
+        .suggestion .avatar { width: 37px; height: 37px; }
+        .suggestion-info { min-width: 0; }
+        .suggestion-info strong { display: block; overflow: hidden; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+        .suggestion-info span { display: block; margin-top: 3px; color: var(--muted); font-size: 10px; }
+        .suggestion form { margin-left: auto; }
+        .suggestion .follow-button { min-width: 0; padding: 6px 9px; }
+        .empty-card { padding: 35px 22px; border: 1px dashed #d8ded5; border-radius: 14px; background: white; text-align: center; }
+        .empty-card h2 { margin: 0 0 8px; font-size: 17px; }
+        .empty-card p { margin: 0 0 15px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+        .empty-card a { color: var(--green); font-size: 12px; font-weight: 750; }
+        .side-note { margin: 14px 4px; color: #969c93; font-size: 11px; line-height: 1.6; }
+        @@media (max-width: 850px) {
+            .page { max-width: 700px; grid-template-columns: minmax(0, 1fr); gap: 14px; padding-top: 35px; }
+            .side-column { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding-top: 0; }
+            .profile-card { margin-bottom: 0; }
+            .side-note { display: none; }
+        }
+        @@media (max-width: 560px) {
+            .site-header { height: 62px; padding: 0 15px; }
+            .brand { font-size: 17px; }
+            .top-nav { gap: 0; font-size: 11px; }
+            .top-nav a { padding: 8px; }
+            .page { gap: 18px; padding: 28px 13px 48px; }
+            .intro { margin-bottom: 20px; }
+            h1 { font-size: 31px; }
+            .intro-copy { font-size: 13px; }
+            .feed-tabs { width: 100%; }
+            .feed-tabs a { flex: 1; }
+            .video-card { border-radius: 12px; }
+            .creator-header { gap: 10px; padding: 11px; }
+            .avatar { width: 39px; height: 39px; }
+            .creator-detail { max-width: 190px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+            .video-player { aspect-ratio: 1.15; }
+            .side-column { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" asp-page="/Index"><span class="brand-mark" aria-hidden="true">h</span><span>hustle<span class="brand-accent">link</span></span></a>
+        <nav class="top-nav" aria-label="Main navigation">
+            <a asp-page="/Index" asp-route-feed="discover" aria-current="@(Model.Feed == "discover" ? "page" : null)">Discover</a>
+            <a asp-page="/Index" asp-route-feed="following" aria-current="@(Model.Feed == "following" ? "page" : null)">Following</a>
+        </nav>
+    </header>
+
+    <main class="page">
+      <section class="feed-column" aria-label="Video feed">
+        <div class="intro">
+            <p class="eyebrow">Good work speaks for itself</p>
+            <h1>Skills speak for themselves.</h1>
+            <p class="intro-copy">Discover makers, cooks, stylists and builders sharing what they can do. No certificates needed.</p>
+        </div>
+
+        <nav class="feed-tabs" aria-label="Choose a feed">
+            <a asp-page="/Index" asp-route-feed="discover" aria-current="@(Model.Feed == "discover" ? "page" : null)">Discover</a>
+            <a asp-page="/Index" asp-route-feed="following" aria-current="@(Model.Feed == "following" ? "page" : null)">Following</a>
+        </nav>
+
+        @if (Model.Message is not null)
+        {
+            <p class="notice" role="status">@Model.Message</p>
+        }
+
+        @if (Model.Videos.Count == 0)
+        {
+            <section class="empty-card">
+                <h2>Your Following feed is empty</h2>
+                <p>Follow creators in Discover to see their work here.</p>
+                <a asp-page="/Index" asp-route-feed="discover">Explore creators</a>
+            </section>
+        }
+
+        @foreach (var item in Model.Videos)
+        {
+            var post = item.Post;
+            <article class="video-card">
+                <header class="creator-header">
+                    <img class="avatar" src="@post.Creator.AvatarUrl" alt="" width="48" height="48" />
+                    <div class="creator-info">
+                        <p class="creator-name">@post.Creator.DisplayName <span style="color: var(--muted); font-weight: 500;">@@@post.Creator.Handle</span></p>
+                        <p class="creator-detail">@post.Creator.Skill · @post.Creator.Location</p>
+                    </div>
+                    <div class="creator-actions">
+                        @if (!string.IsNullOrWhiteSpace(post.Creator.ContactEmail))
+                        {
+                            <a class="contact-button" href="mailto:@post.Creator.ContactEmail?subject=HustleLink%20service%20inquiry">Contact</a>
+                        }
+                        @if (!post.Creator.IsCurrentUser)
+                        {
+                            <form class="follow-form" method="post" asp-page-handler="ToggleFollow">
+                                <input type="hidden" name="creatorId" value="@post.CreatorId" />
+                                <input type="hidden" name="feed" value="@Model.Feed" />
+                                <button class="follow-button" type="submit">@(item.IsFollowing ? "Unfollow" : "Follow")</button>
+                            </form>
+                        }
+                    </div>
+                </header>
+                <video class="video-player" controls playsinline preload="none" poster="@post.ThumbnailUrl">
+                    <source src="@post.VideoUrl" type="video/mp4" />
+                    Your browser does not support video playback.
+                </video>
+                <div class="post-details">
+                    <div class="post-stats">
+                        <span>@post.ViewCount.ToString("N0") views</span>
+                        <time datetime="@post.PostedAt.ToString("O")">@post.PostedAt.ToLocalTime().ToString("MMM d")</time>
+                    </div>
+                    <p class="caption"><strong>@@@post.Creator.Handle</strong> @post.Caption</p>
+                    <div class="engagement-row">
+                        <form class="like-form" method="post" asp-page-handler="ToggleLike">
+                            <input type="hidden" name="videoPostId" value="@post.Id" />
+                            <input type="hidden" name="feed" value="@Model.Feed" />
+                            <button class="like-button @(item.IsLiked ? "liked" : "")" type="submit" aria-pressed="@item.IsLiked">
+                                @(item.IsLiked ? "♥ Liked" : "♡ Like") · @item.LikeCount
+                            </button>
+                        </form>
+                        <div class="rating-summary">
+                            <span class="rating-stars" aria-label="@(item.RatingCount == 0 ? "Not rated yet" : $"{item.AverageRating:0.0} out of 5 stars")">
+                                @for (var star = 1; star <= 5; star++)
+                                {
+                                    <span class="@(star <= Math.Round(item.AverageRating, MidpointRounding.AwayFromZero) ? "filled" : "")" aria-hidden="true">★</span>
+                                }
+                            </span>
+                            <span>@(item.RatingCount == 0 ? "Not rated yet" : $"{item.AverageRating:0.0} / 5 · {item.RatingCount} rating(s)")</span>
+                        </div>
+                        <form class="rating-form" method="post" asp-page-handler="RateService">
+                            <input type="hidden" name="videoPostId" value="@post.Id" />
+                            <input type="hidden" name="feed" value="@Model.Feed" />
+                            <fieldset class="rating-fieldset">
+                                <legend>Rate service</legend>
+                                @for (var star = 1; star <= 5; star++)
+                                {
+                                    <label class="rating-choice">
+                                        <input type="radio" name="rating" value="@star" required checked="@(item.UserRating == star)" aria-label="@star out of 5 stars" />
+                                        <span aria-hidden="true">★</span>
+                                    </label>
+                                }
+                                <button class="rate-button" type="submit">Rate</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </article>
+        }
+      </section>
+
+        <aside class="side-column" aria-label="Creator suggestions">
+          <section class="profile-card">
+            <div class="profile-heading">
+                <span class="profile-icon" aria-hidden="true">Y</span>
+                <div><strong>Your profile</strong><span>@@your_hustle</span></div>
+            </div>
+            <p class="profile-copy">Show people what you can do. Your skills are your credentials.</p>
+            <div class="profile-tag">✦ &nbsp; Made for doers, everywhere</div>
+          </section>
+          <section class="suggestions-card">
+            <h2 class="suggestions-title">Creators to discover</h2>
+            @foreach (var suggestion in Model.Suggestions)
+            {
+                <article class="suggestion">
+                    <img class="avatar" src="@suggestion.Creator.AvatarUrl" alt="" width="40" height="40" />
+                    <div class="suggestion-info">
+                        <strong>@suggestion.Creator.DisplayName</strong>
+                        <span>@suggestion.Creator.Skill</span>
+                    </div>
+                    <form method="post" asp-page-handler="ToggleFollow">
+                        <input type="hidden" name="creatorId" value="@suggestion.Creator.Id" />
+                        <input type="hidden" name="feed" value="@Model.Feed" />
+                        <button class="follow-button" type="submit">Follow</button>
+                    </form>
+                </article>
+            }
+          </section>
+          <p class="side-note">A place for skills, stories and the people behind them.</p>
+        </aside>
+    </main>
+</body>
+</html>

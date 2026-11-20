@@ -5,3 +5,5 @@ web/dist/
 backend/config/daraja.env
 backend/.env
 *.log
+**/bin/
+**/obj/
